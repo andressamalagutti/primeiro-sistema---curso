@@ -1,0 +1,80 @@
+*******************************************************************************
+TYPEDEV - Conheça nossos cursos e mentorias
+https://type.dev.br
+
+Link ChatGPT
+https://chatgpt.com
+
+*******************************************************************************
+SCRIPT MODELAGEM DE DADOS:
+
+Você é um especialista em Typescript e NextJS. Os dados a seguir foram copiados
+de uma planilha, com a primeira linha sendo os dados do cabeçalho e as linhas
+subsequentes sendo os registros com seus respectivos valores. Com base nesses
+dados, gere um modelo Prisma para adicionar ao arquivo schema.prisma. Crie os
+nomes das propriedades para cada campo baseado no nome do cabeçalho.
+Deixe as propriedades em camelCase, não pode conter espaços nem acentos.
+Adicione os tipos de dados de forma consistente baseados nos tipos de dados dos
+valores da planilha. Considere qualquer formato de data como DateTime.
+Considere qualquer dado numérico como Int ou Float. Todos os dados que vierem
+da planilha devem ser opcionais, então adicione o ponto de interrogação após os
+tipos. Adicione as seguintes propriedades obrigatórias a este modelo:
+----
+id Int @id @default(autoincrement())
+createdAt DateTime @default(now())
+updatedAt DateTime? @updatedAt
+----
+Seguem os dados da planilha:
+[DADOS QUE VOCÊ COPIOU DA SUA TABELA AQUI]
+
+*********************************************************************************
+SCRIPT CRIAÇÃO DA TABELA:
+
+A sua tarefa agora é gerar uma definição de colunas para a React Table com base
+no modelo Prisma criado e cabeçalhos da planilha já fornecidos. Todas as colunas
+devem aparecer. Mantenha todos os cabeçalhos em português. Não crie
+declarações de importação. Use a função "brl" para preços e a função “format”
+para datas. Use template literals para adicionar sufixos nos valores numéricos se
+necessário. A sequência das colunas deve ser a mesma que aparece na planilha.
+Utilize o seguinte modelo de columns definition como referência, mantendo o id:
+“actions” como primeiro item:
+— [{ id: "
+actions", cell: ({ row }) => <
+RowActions row={row} /> },{ accessorKey: "
+id",
+header: "ID" },{ header: "Preço", accessorFn: (row) => row.price && brl(row.price) },{
+header: "Data", accessorFn: (row) => row.date && format(row.date,
+"dd/MM/yyyy")},{header: "Tamanho", accessorFn: (row) => row.size && `${row.size}
+cm`}]
+
+*********************************************************************************
+SCRIPT CRIAÇÃO DO FORMULÁRIO:
+
+Sua tarefa agora é gerar o código de um formulário com base no modelo do
+Prisma criado. Use a correspondência abaixo para criar campos apropriados para
+cada tipo de dado. Observe que declarações de importação não são necessárias
+para esta tarefa.
+Para um campo do tipo String, utilize o seguinte componente: <InputForm.H
+name="nomeDoCampo" label="Rótulo do Campo" />
+Para um campo do tipo Int, utilize: <InputForm.H name="nomeDoCampo"
+label="Rótulo do Campo" type="number" min="0" />
+Para um campo do tipo Float, aplique: <InputForm.H name="nomeDoCampo"
+label="Rótulo do Campo" type="number" min="0" step="0.01" />
+Para um campo do tipo Date, empregue: <DatepickerForm.H
+name="nomeDoCampo" label="Rótulo do Campo"/>
+
+*********************************************************************************
+SCRIPT IMPORTAÇÃO DE REGISTROS:
+
+Com base no modelo Prisma abaixo e no conteúdo da planilha fornecido na
+primeira mensagem dessa conversa, gere código de “entries” para criar itens no
+banco de dados. O código Typescript a seguir mostra como fazer isso:
+----
+const entries = rows.slice(1).map((row: any) => ({
+numberExample: row[6] && (typeof row[6] === 'string' ?
+parseFloat(row[6].replace(/[^0-9.]/g, "")) : Number(row[6])),
+dateExample: row[18] && parse(row[18], "dd/MM/yyyy", new Date()),
+stringExample: row[20] && String(row[20])
+}))
+----
+Modelo Prisma:
